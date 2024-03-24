@@ -1,4 +1,5 @@
 package com.example.criptotrackerapp.model
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -12,8 +13,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+data class Asset(
+    val id: String,
+    val name: String,
+    val symbol: String,
+    val price: Double,
+    val percentage: Double
+)
+
 @Composable
-fun AssetRow() {
+fun AssetRow(asset: Asset) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
@@ -24,17 +33,17 @@ fun AssetRow() {
             modifier = Modifier.padding(horizontal = 8.dp)
         )
         Column {
-            Text(text = "Bitcoin")
-            Text(text = "BTC")
+            Text(text = asset.name)
+            Text(text = asset.symbol)
         }
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "$65000",
+            text = "$${asset.price}",
             fontSize = 16.sp,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
         Text(
-            text = "5.75",
+            text = "${asset.percentage}%",
             fontSize = 14.sp,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
@@ -44,10 +53,28 @@ fun AssetRow() {
 @Preview(showBackground = true)
 @Composable
 fun AssetRowPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        AssetRow()
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        AssetRow(
+            Asset(
+                id = "bitcoin",
+                name = "Bitcoin",
+                symbol = "BTC",
+                price = 65000.00,
+                percentage = 5.75
+            )
+        )
         Divider()
-        AssetRow()
-        Divider()
+        AssetRow(
+            Asset(
+                id = "ethereum",
+                name = "Ethereum",
+                symbol = "ETH",
+                price = 3500.05,
+                percentage = -1.8
+            )
+        )
     }
 }
+
